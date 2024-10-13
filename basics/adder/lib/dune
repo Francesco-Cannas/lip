@@ -1,0 +1,4 @@
+(library
+ (name adder)
+ (public_name adder)
+ (libraries))

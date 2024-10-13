@@ -1,4 +1,4 @@
-open Adder
+open Adder;;
     
 (* read one line from standard input, and output it to a string *)
 
