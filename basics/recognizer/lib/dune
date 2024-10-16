@@ -1,0 +1,4 @@
+(library
+ (name recognizer)
+ (public_name recognizer)
+ (libraries))

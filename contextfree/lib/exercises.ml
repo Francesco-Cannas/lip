@@ -16,16 +16,33 @@ let todo : grammar =
 
 
 (* #### Exercise 1, easy (zero_n_one_n) *)
-let zero_n_one_n : grammar = todo
+let rec count_zero list = match list with
+  | [] -> 0
+  | x::xs -> if x = 0 then 1 + count_zero xs else count_zero xs
 
+let rec count_one list = match list with
+  | [] -> 0
+  | x::xs -> if x = 1 then 1 + count_one xs else count_zero xs
+
+let zero_n_one_n (list : int list) : grammar =
+  let zeros = count_zero list in
+    let ones = count_one list in 
+    {
+      symbols = [S; A; B];
+      terminals = ['0'; '1'];
+      productions = [
+        S --> (String.make zeros '0' ^ String.make ones '1');
+        A --> "0";
+        B --> "1"
+      ];
+      start = S;
+    }
 
 (* #### Exercise 2, easy (palindromes) *)
 let palindromes : grammar = todo
 
-
 (* #### Exercise 3, medium (balanced_parentheses)*)
 let balanced_parentheses : grammar = todo
-
 
 (* #### Exercise 4, hard (same_amount)
 
