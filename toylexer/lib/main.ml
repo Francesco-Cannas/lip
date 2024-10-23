@@ -24,4 +24,12 @@ let string_of_frequencies fl =
   List.fold_left (fun s (t,n) -> s ^ ((string_of_token t) ^ " -> " ^ string_of_int n ^ "\n")) "" fl
 
 (* frequency : int -> 'a list -> ('a * int) list *)
-let frequency _ _ = failwith("TODO")
+let rec counter n lista = match lista with 
+    [] -> 0
+  | x::restoflista when x = n -> 1 + counter n restoflista
+  | _::restoflista -> counter n restoflista
+
+let rec frequency n lista = match lista with 
+   [] -> []
+  | x::restoflista when n>0 -> (x, counter x lista) :: frequency (n-1) restoflista
+  | _::restoflista -> frequency (n-1) restoflista

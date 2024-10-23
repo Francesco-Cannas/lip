@@ -1,5 +1,5 @@
 (library
- (name toylexertest)
+ (name test_toylexer)
  (inline_tests)
  (preprocess
   (pps ppx_inline_test))
