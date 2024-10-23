@@ -16,38 +16,64 @@ let todo : grammar =
 
 
 (* #### Exercise 1, easy (zero_n_one_n) *)
-let rec count_zero list = match list with
-  | [] -> 0
-  | x::xs -> if x = 0 then 1 + count_zero xs else count_zero xs
-
-let rec count_one list = match list with
-  | [] -> 0
-  | x::xs -> if x = 1 then 1 + count_one xs else count_zero xs
-
-let zero_n_one_n (list : int list) : grammar =
-  let zeros = count_zero list in
-    let ones = count_one list in 
-    {
-      symbols = [S; A; B];
-      terminals = ['0'; '1'];
-      productions = [
-        S --> (String.make zeros '0' ^ String.make ones '1');
-        A --> "0";
-        B --> "1"
-      ];
-      start = S;
-    }
+let zero_n_one_n : grammar = {
+    symbols = [S];
+    terminals = ['0'; '1'];
+    productions = [
+      S --> "0S1";
+      S --> "";
+    ];
+    start = S;
+}
 
 (* #### Exercise 2, easy (palindromes) *)
-let palindromes : grammar = todo
+let palindromes : grammar = {
+  symbols = [S];
+  terminals = ['0'; '1'];
+  productions = [
+    S --> "0S0";
+    S --> "1S1";
+    S --> "";
+    S --> "0";
+  ];
+  start = S;
+}
 
 (* #### Exercise 3, medium (balanced_parentheses)*)
-let balanced_parentheses : grammar = todo
+let balanced_parentheses : grammar = {
+  symbols = [S];
+  terminals = ['('; ')'; '['; ']'; '{'; '}'];
+  productions = [
+    S --> "()S";
+    S --> "[]S";
+    S --> "{}S";
+    S --> "S()";
+    S --> "S[]";
+    S --> "S{}";
+    S --> "(S)";
+    S --> "[S]";
+    S --> "{S}";
+    S --> "";
+  ];
+  start = S;
+}
 
 (* #### Exercise 4, hard (same_amount)
-
    Hint 1: you can use 'a' and 'b' for terminals.
    Hint 2: think of the language of words where the number of 0s is one greater
    than the number of 1s and viceversa, then combine them.
 *)
-let same_amount : grammar = todo
+let same_amount : grammar = {
+  symbols = [S];
+  terminals = ['0'; '1'];
+  productions = [
+    S --> "0S1";
+    S --> "1S0";
+    S --> "0S0";
+    S --> "1S1";
+    S --> "0";
+    S --> "1";
+    S --> "";
+  ];
+  start = S;
+}
