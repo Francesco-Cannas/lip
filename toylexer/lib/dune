@@ -1,3 +1,4 @@
 (library
- (name toylexer))
+ (name toylexer)
+ (libraries str))
 (ocamllex lexer)
