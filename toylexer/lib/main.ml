@@ -20,40 +20,29 @@ let string_of_frequencies fl =
   List.fold_left (fun s (t,n) -> s ^ ((string_of_token t) ^ " -> " ^ string_of_int n ^ "\n")) "" fl
 
 (* frequency : int -> 'a list -> ('a * int) list *)
-(* Conta le occorrenze di un elemento in una lista *)
+(* Funzione ricorsiva per contare le occorrenze di un elemento n in una lista *)
 let rec counter n lista = match lista with 
-    [] -> 0
-  | x::restoflista when x = n -> 1 + counter n restoflista
-  | _::restoflista -> counter n restoflista
- 
+    [] -> 0 (* Se la lista è vuota, ritorna 0 *)
+  | x::restoflista when x = n -> 1 + counter n restoflista (* Se l'elemento corrente è uguale a n, aggiungi 1 e continua a contare nel resto della lista *)
+  | _::restoflista -> counter n restoflista (* Altrimenti, continua a contare nel resto della lista *)
+
+(* Funzione per trovare l'indice di un elemento in una lista *)
 let index_of element lista =
   let rec aux i = function
-    | [] -> -1
-    | x::xs -> if x = element then i else aux (i + 1) xs
-  in aux 0 lista
-    
+    | [] -> -1 (* Se la lista è vuota, ritorna -1 *)
+    | x::xs -> if x = element then i else aux (i + 1) xs (* Se l'elemento corrente è uguale all'elemento cercato, ritorna l'indice corrente, altrimenti continua a cercare incrementando l'indice *)
+  in aux 0 lista (* Inizia la ricerca dall'indice 0 *)
+
+(* Funzione per calcolare la frequenza degli elementi in una lista *)
 let frequency n lista =
-  let unique_tokens = List.sort_uniq compare lista in
-  let token_counts = List.map (fun t -> (t, counter t lista)) unique_tokens in
+  let unique_tokens = List.sort_uniq compare lista in (* Ordina e rimuove i duplicati dalla lista *)
+  let token_counts = List.map (fun t -> (t, counter t lista)) unique_tokens in (* Conta le occorrenze di ogni elemento unico *)
   let rec aux acc count = function
-    | [] -> List.rev acc
-    | (t, tn)::xs when count < n -> aux ((t, tn)::acc) (count + 1) xs
-    | _ -> List.rev acc
+    | [] -> List.rev acc (* Se la lista è vuota, ritorna l'accumulatore invertito *)
+    | (t, tn)::xs when count < n -> aux ((t, tn)::acc) (count + 1) xs (* Se il conteggio è inferiore a n, aggiungi l'elemento e il suo conteggio all'accumulatore e continua *)
+    | _ -> List.rev acc (* Altrimenti, ritorna l'accumulatore invertito *)
   in
   let sorted_token_counts = List.sort (fun (t1, count1) (t2, count2) ->
-    let cmp = compare count2 count1 in
-      if cmp = 0 then compare (index_of t1 lista) (index_of t2 lista) else cmp
-      ) token_counts in aux [] 0 sorted_token_counts 
-
-(*
-let rec tronco n lista = match lista with  
-    [] -> []
-  | _::restoflista when n > 0 -> if n > 0 then tronco (n-1) restoflista else restoflista
-  | _ -> lista
-
-let frequency n lista =
-  let unique_tokens = List.sort_uniq compare lista in
-  let tronchi_tokens = tronco ((List.length unique_tokens) - n-1) unique_tokens in
-  let final = List.map (fun t -> (t, counter t lista)) tronchi_tokens in
-  List.rev(List.sort (fun (_, count1) (_, count2) -> compare count1 count2) final);;
-*) 
+    let cmp = compare count2 count1 in (* Confronta i conteggi in ordine decrescente *)
+      if cmp = 0 then compare (index_of t1 lista) (index_of t2 lista) else cmp (* Se i conteggi sono uguali, confronta gli indici degli elementi *)
+      ) token_counts in aux [] 0 sorted_token_counts (* Ordina i conteggi e chiama la funzione ausiliaria *)
