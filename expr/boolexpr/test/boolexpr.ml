@@ -44,3 +44,11 @@ let%test "trace_fully_reduced_in_10_steps" =
   let expr = parse "if (if false then false else false) then (if false then true else false) else (if true then false else true)" in
   let steps = trace expr in
   List.length steps <= 10
+
+(* ### Unit tests for task 6 *)  
+let%test "test_eval_not_true_or_true" = test_eval "not true || true" true
+let%test "test_eval_not_true_and_false" = test_eval "not true && false" false
+let%test "test_eval_false_and_false_or_true" = test_eval "false && false || true" true
+let%test "test_eval_true_or_false_and_false" = test_eval "true || false && false" true
+let%test "test_eval_if_true_then_true_else_false_and_false" = test_eval "if true then true else false && false" true
+let%test "test_eval_if_true_then_false_else_false_or_true" = test_eval "if true then false else false || true" false
