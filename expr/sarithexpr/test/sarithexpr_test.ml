@@ -55,5 +55,3 @@ let%test "test_type18" = test_type "succ 0 and iszero 0" None
 let%test "test_type19" = test_type "iszero 0 or succ 0" None
 
 let%test "test_type20" = test_type "succ 0 or iszero 0" None
-
-       
