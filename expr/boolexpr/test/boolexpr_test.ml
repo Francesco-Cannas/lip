@@ -1,5 +1,5 @@
-open BoolexprLib.Main
-open BoolexprLib.Ast
+open Boolexpr.Main
+open Boolexpr.Ast
 
 let test_eval expr exp_result =
   (expr |> parse |> eval) = exp_result

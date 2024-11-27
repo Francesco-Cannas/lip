@@ -1,6 +1,5 @@
-open ArithexprLib.Ast
-open ArithexprLib.Main
-
+open Arithexpr.Ast
+open Arithexpr.Main
 
 (**********************************************************************
  Test big-step semantics
@@ -82,4 +81,3 @@ let%test "test_smallstep9" = test_smallstep "not 0" None
 let%test "test_smallstep10" = test_smallstep "pred 0" None
 
 let%test "test_smallstep11" = test_smallstep "pred pred succ 0" None
-

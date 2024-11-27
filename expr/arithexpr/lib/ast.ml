@@ -9,3 +9,7 @@ type expr =
   | Succ of expr
   | Pred of expr
   | IsZero of expr
+
+type value = 
+    Bool of bool 
+  | Nat of int

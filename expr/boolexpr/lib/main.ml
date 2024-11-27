@@ -4,7 +4,7 @@ let rec string_of_boolexpr = function
     True -> "True"
   | False -> "False"
   | Not(e0) -> "Not(" ^ (string_of_boolexpr e0) ^ ")"
-  | And(e0, e1) -> "If(" ^ (string_of_boolexpr e0) ^ "," ^ (string_of_boolexpr e1) ^ ",False)"  
+  | And(e0, e1) -> "If(" ^ (string_of_boolexpr e0) ^ "," ^ (string_of_boolexpr e1) ^ ", False)"  
   | Or(e0, e1) -> "If(" ^ (string_of_boolexpr e0) ^ ",True," ^ (string_of_boolexpr e1) ^ ")"  
   | If(e0, e1, e2) -> "If(" ^ (string_of_boolexpr e0) ^ "," ^ (string_of_boolexpr e1) ^ "," ^ (string_of_boolexpr e2) ^ ")"
 
